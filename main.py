@@ -5,8 +5,8 @@ from algoritmos import ClimbingHill
 
 # Main
 problem = OitoRainhas.OitoRainhas()
-print(problem.amountAtk(problem.tabuleiro))
 
 solve = ClimbingHill.ClimbingHill(problem)
 
-solve.result()
+limit = input("\nGive a limit: ")
+solve.result(limit)

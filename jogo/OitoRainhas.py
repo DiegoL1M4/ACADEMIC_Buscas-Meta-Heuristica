@@ -28,29 +28,29 @@ class OitoRainhas(object):
 			total -= 1
 
 			# Check on main diagonal
-			linhaAJD = queen[0];
-			colunaAJD = queen[1];
+			linhaAJD = queen[0]
+			colunaAJD = queen[1]
 			while (linhaAJD != 0 and colunaAJD != 0):
 				linhaAJD -= 1
 				colunaAJD -= 1
 
 			for k in range(8):
 				if((linhaAJD+k) == 8 or (colunaAJD+k) == 8):
-					break;
+					break
 				if(tabuleiro[linhaAJD+k][colunaAJD+k] == 1):
 					total += 1
 			total -= 1
 
 			# Check on secondary diagonal
-			linhaAJD = queen[0];
-			colunaAJD = queen[1];
+			linhaAJD = queen[0]
+			colunaAJD = queen[1]
 			while (linhaAJD != 0 and colunaAJD != 7):
 				linhaAJD -= 1
 				colunaAJD += 1
 
 			for k in range(8):
 				if((linhaAJD+k) == 8 or (colunaAJD-k) == -1):
-					break;
+					break
 				if(tabuleiro[linhaAJD+k][colunaAJD-k] == 1):
 					total += 1
 			total -= 1
@@ -69,7 +69,7 @@ class OitoRainhas(object):
 	def mostrar(self, tabuleiro):
 		for i in tabuleiro:
 			for j in i:
-				print(" " + str(j), end="")
+				print("  " + str(j), end="")
 			print()
 
 	def copy(self, tabuleiro):
@@ -112,15 +112,14 @@ class OitoRainhas(object):
 
 	def move(self):
 		pos = self.smallest( self.neighbour() )
-		print(pos)
+		
 		# Erases the entire column of the jth
 		for k in range(8):
 			self.tabuleiro[ k ][ pos[1] ] = 0
-			print(pos[0])
 
 		self.tabuleiro[ pos[0] ][ pos[1] ] = 1
 
-
+'''
 e = OitoRainhas()
 e.mostrar(e.tabuleiro)
 print()
@@ -130,3 +129,4 @@ e.move()
 e.mostrar(e.tabuleiro)
 print()
 e.mostrar(e.neighbour())
+'''
