@@ -1,12 +1,12 @@
 
 # Imports
 from jogo import OitoRainhas
-from algoritmos import ClimbingHill
+from algoritmos import HillClimbing
 
 # Main
 problem = OitoRainhas.OitoRainhas()
 
-solve = ClimbingHill.ClimbingHill(problem)
+solve = HillClimbing.HillClimbing(problem)
 
 limit = input("\nGive a limit: ")
 solve.result(limit)

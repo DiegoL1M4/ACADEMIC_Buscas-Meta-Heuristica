@@ -81,7 +81,6 @@ class OitoRainhas(object):
 			matrix.append(line)
 		return matrix
 
-
 	# Neighbour
 	def neighbour(self):
 		matrix = []
