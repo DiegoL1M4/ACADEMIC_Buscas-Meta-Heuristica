@@ -4,5 +4,4 @@ class ClimbingHill(object):
         self.game = game
 
     def result(self):
-        print(self.game.amountAtk())
-        
+        print(self.game.amountAtk(self.game.tabuleiro))

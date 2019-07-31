@@ -5,7 +5,7 @@ from algoritmos import ClimbingHill
 
 # Main
 problem = OitoRainhas.OitoRainhas()
-print(problem.amountAtk())
+print(problem.amountAtk(problem.tabuleiro))
 
 solve = ClimbingHill.ClimbingHill(problem)
 

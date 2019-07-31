@@ -16,13 +16,13 @@ class OitoRainhas(object):
 		for k in range(8):
 			self.tabuleiro[self.rainhas[k]][k] = 1
 
-	def amountAtk(self):
+	def amountAtk(self,tabuleiro):
 		total = 0
 
 		# Check all queens
-		for queen in self.localQueens(self.tabuleiro):
+		for queen in self.localQueens(tabuleiro):
 			# Check in Line
-			for line in self.tabuleiro[ queen[0] ]:
+			for line in tabuleiro[ queen[0] ]:
 				if(line == 1):
 					total += 1
 			total -= 1
@@ -37,7 +37,7 @@ class OitoRainhas(object):
 			for k in range(8):
 				if((linhaAJD+k) == 8 or (colunaAJD+k) == 8):
 					break;
-				if(self.tabuleiro[linhaAJD+k][colunaAJD+k] == 1):
+				if(tabuleiro[linhaAJD+k][colunaAJD+k] == 1):
 					total += 1
 			total -= 1
 
@@ -51,7 +51,7 @@ class OitoRainhas(object):
 			for k in range(8):
 				if((linhaAJD+k) == 8 or (colunaAJD-k) == -1):
 					break;
-				if(self.tabuleiro[linhaAJD+k][colunaAJD-k] == 1):
+				if(tabuleiro[linhaAJD+k][colunaAJD-k] == 1):
 					total += 1
 			total -= 1
 
@@ -65,16 +65,68 @@ class OitoRainhas(object):
 					list.append([i,j])
 		return list
 
-	# Show Board
-	def mostrar(self):
-		for i in self.tabuleiro:
+	# Auxiliaries Methods
+	def mostrar(self, tabuleiro):
+		for i in tabuleiro:
 			for j in i:
 				print(" " + str(j), end="")
 			print()
 
-'''
-e = OitoRainhas(5)
-e.mostrar()
-print(e.localQueens(e.tabuleiro))
-print(e.amountAtk())
-'''
+	def copy(self, tabuleiro):
+		matrix = []
+		for i in range(8):
+			line = []
+			for j in range(8):
+				line.append(self.tabuleiro[i][j])
+			matrix.append(line)
+		return matrix
+
+
+	# Neighbour
+	def neighbour(self):
+		matrix = []
+		for i in range(8):
+			line = []
+			for j in range(8):
+				newTab = self.copy(self.tabuleiro)
+
+				# Erases the entire column of the jth
+				for k in range(8):
+					newTab[k][j] = 0
+				# Places the queen
+				newTab[i][j] = 1
+
+				line.append( self.amountAtk(newTab) )
+			matrix.append(line)
+		return matrix
+
+	def smallest(self,tabuleiro):
+		menor = tabuleiro[0][0]
+		pos = [0,0]
+		for i in range(8):
+			for j in range(8):
+				if (tabuleiro[i][j] < menor):
+					menor = tabuleiro[i][j]
+					pos = [i,j]
+		return pos
+
+	def move(self):
+		pos = self.smallest( self.neighbour() )
+		print(pos)
+		# Erases the entire column of the jth
+		for k in range(8):
+			self.tabuleiro[ k ][ pos[1] ] = 0
+			print(pos[0])
+
+		self.tabuleiro[ pos[0] ][ pos[1] ] = 1
+
+
+e = OitoRainhas()
+e.mostrar(e.tabuleiro)
+print()
+e.mostrar(e.neighbour())
+print()
+e.move()
+e.mostrar(e.tabuleiro)
+print()
+e.mostrar(e.neighbour())
