@@ -2,11 +2,32 @@
 # Imports
 from jogo import OitoRainhas
 from algoritmos import HillClimbing
+from algoritmos import SimulatedAnnealing
+from algoritmos import AlgoritmosGeneticos
 
-# Main
+
+
+# Main (Hill Climbing)
 problem = OitoRainhas.OitoRainhas()
+solver = HillClimbing.HillClimbing(problem)
 
-solve = HillClimbing.HillClimbing(problem)
+limit = input("\nHill Climbing\nInforme uma limite: ")
+solver.result(limit)
 
-limit = input("\nGive a limit: ")
-solve.result(limit)
+
+
+# Main (Simulated Annealing)
+problem = OitoRainhas.OitoRainhas()
+solver = SimulatedAnnealing.SimulatedAnnealing(problem)
+
+limit = input("\nSimulated Annealing\nInforme uma limite: ")
+solver.result(limit)
+
+
+
+# Main (Algoritmos Genéticos)
+problem = OitoRainhas.OitoRainhas()
+solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
+
+limit = input("\nAlgoritmos Genéticos\nInforme uma limite: ")
+solver.result(limit)
