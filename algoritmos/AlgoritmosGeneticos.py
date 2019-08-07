@@ -16,14 +16,16 @@ class AlgoritmosGeneticos(object):
         for k in range(tamPopulation):
             population.append( self.game.randomQueens() )
 
-        if( min(evaluations) == 0 ):
-            return population[ population.index( min(evaluations) ) ]
-        # As evaluations servem só pra ter saber se convergiu?
+        
 
         for k in range(limit):
             # Evaluation
             for individual in population:
                 evaluations.append( self.game.amountAtk2(individual) )
+
+            if( min(evaluations) == 0 ):
+                return population[ population.index( min(evaluations) ) ]
+            # As evaluations servem só pra ter saber se convergiu?
 
             newPopulation = []
 

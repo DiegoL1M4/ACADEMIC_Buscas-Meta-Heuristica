@@ -31,4 +31,4 @@ solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
 
 #limit = input("\nAlgoritmos Genéticos\nInforme uma limite: ")
 limit = 5
-solver.result(limit, 10, 0.2, 0.7, 0.1)
+print( solver.result(limit, 10, 0.2, 0.7, 0.1) )
