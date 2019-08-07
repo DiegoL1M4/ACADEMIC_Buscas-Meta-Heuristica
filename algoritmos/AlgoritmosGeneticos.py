@@ -16,6 +16,10 @@ class AlgoritmosGeneticos(object):
         for k in range(tamPopulation):
             population.append( self.game.randomQueens() )
 
+        if( min(evaluations) == 0 ):
+            return population[ population.index( min(evaluations) ) ]
+        # As evaluations servem só pra ter saber se convergiu?
+
         for k in range(limit):
             # Evaluation
             for individual in population:
@@ -34,16 +38,19 @@ class AlgoritmosGeneticos(object):
                 newPopulation.append( population[indexRan] )
 
             # Reproduction
-            iterations = tamPopulation * R
+            iterations = int(tamPopulation * R)
             mask = [0,1,0,1,0,1,0,1]
-            f1 = random.randrange(0, len(newPopulation))
-            f2 = random.randrange(0, len(newPopulation))
-            newIndividual = []
-            for k in mask:
-                if(k == 0):
-                    newIndividual.append(newPopulation[f1])
-                else:
-                    newIndividual.append(newPopulation[f2])
+            for k in range(iterations):
+                f1 = random.randrange(0, len(newPopulation))
+                f2 = random.randrange(0, len(newPopulation))
+                newIndividual = []
+                for k in range(8):
+                    if(mask[k] == 0):
+                        newIndividual.append(newPopulation[f1][k])
+                    else:
+                        newIndividual.append(newPopulation[f2][k])
+                newPopulation.append( newIndividual )
+            #Duvida: uso pra reprodução sempre a lista atualizada da nova população?
 
             # Mutation
             iterations = int(tamPopulation * M)
@@ -57,10 +64,7 @@ class AlgoritmosGeneticos(object):
                 copy[selectColumn] = newLine
                 newPopulation.append(copy)
 
-            print(len(newPopulation))
-            print(newPopulation)
-            input()
-            #population = newPopulation
+            population = newPopulation
 
 
 
