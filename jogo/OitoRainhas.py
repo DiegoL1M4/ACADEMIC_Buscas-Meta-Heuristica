@@ -1,5 +1,6 @@
 
 import random
+import math
 
 class OitoRainhas(object):
 
@@ -15,6 +16,96 @@ class OitoRainhas(object):
 			self.rainhas.append(random.randrange(0, 8))
 		for k in range(8):
 			self.tabuleiro[self.rainhas[k]][k] = 1
+
+	def randomQueens(self):
+		list = []
+		for k in range(8):
+			list.append(random.randrange(1, 9))
+		return list
+
+	def combinacao(self, n, p):
+		return ( math.factorial(n) / (math.factorial(p) * math.factorial(n - p)) )
+
+	def amountAtk2(self,positions):
+		total = 0
+
+		board = []
+		for k in range(8):
+			board.append([0,0,0,0,0,0,0,0])
+		for k in range(8):
+			board[positions[k] - 1][k] = 1
+
+		# All lines
+		for line in board:
+			cont = 0
+			for column in range(8):
+				if(line[column] == 1):
+					cont += 1
+			if(cont > 1):
+				total += self.combinacao(cont, 2)
+
+		# All main diagonal
+		for k in range(0,7):
+			cont = 0
+			i = k
+			j = 0
+			while (i <= 7):
+				if(board[i][j] == 1):
+					cont += 1
+				i += 1
+				j += 1
+			if(cont > 1):
+				total += self.combinacao(cont, 2)
+		for k in range(1,7):
+			cont = 0
+			i = 0
+			j = k
+			while (j <= 7):
+				if(board[i][j] == 1):
+					cont += 1
+				i += 1
+				j += 1
+			if(cont > 1):
+				total += self.combinacao(cont, 2)
+
+		# All second diagonal
+		for k in range(1,8):
+			cont = 0
+			i = k
+			j = 0
+			while (i >= 0):
+				if(board[i][j] == 1):
+					cont += 1
+				i -= 1
+				j += 1
+			if(cont > 1):
+				total += self.combinacao(cont, 2)
+		for k in range(1,7):
+			cont = 0
+			i = 7
+			j = k
+			while (j <= 7):
+				if(board[i][j] == 1):
+					cont += 1
+				i -= 1
+				j += 1
+			if(cont > 1):
+				total += self.combinacao(cont, 2)
+
+		return total
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	def amountAtk(self,tabuleiro):
 		total = 0
@@ -111,7 +202,7 @@ class OitoRainhas(object):
 
 	def move(self):
 		pos = self.smallest( self.neighbour() )
-		
+
 		# Erases the entire column of the jth
 		for k in range(8):
 			self.tabuleiro[ k ][ pos[1] ] = 0
@@ -119,6 +210,9 @@ class OitoRainhas(object):
 		self.tabuleiro[ pos[0] ][ pos[1] ] = 1
 
 '''
+e = OitoRainhas()
+print( e.amountAtk2([5,8,7,4,5,6,7,6]) )
+
 e = OitoRainhas()
 e.mostrar(e.tabuleiro)
 print()
