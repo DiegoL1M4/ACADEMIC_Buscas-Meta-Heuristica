@@ -29,10 +29,12 @@ limit = 5000
 result = solver.result(limit)
 '''
 # Main (Simulated Annealing)
-problem = OitoRainhas.OitoRainhas()
-solver = SimulatedAnnealing.SimulatedAnnealing(problem)
-limit = 5000
-result = solver.result(limit, 5000, 2)
+for k in range(100):
+    problem = OitoRainhas.OitoRainhas()
+    solver = SimulatedAnnealing.SimulatedAnnealing(problem)
+    limit = 5000
+    result = solver.result(limit, 5000, 300, 3, 0.9)
+    print(problem.eval(result))
 
 '''
 # Main (Algoritmos Genéticos)
@@ -45,7 +47,7 @@ result = solver.result(limit, 100, 0.4, 0.5, 0.1, [0,0,0,0,1,1,1,1])
 for i in range(8):
     for j in range(8):
         if(result[j] == i+1):
-            print("  1", end="")
+            print(" 1", end="")
         else:
-            print("  0", end="")
+            print(" 0", end="")
     print()
