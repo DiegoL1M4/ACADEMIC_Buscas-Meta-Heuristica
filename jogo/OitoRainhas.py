@@ -6,27 +6,25 @@ class OitoRainhas(object):
 
 	def __init__(self):
 		# Board Creation
-		self.tabuleiro = []
-		for k in range(8):
-			self.tabuleiro.append([0,0,0,0,0,0,0,0])
+		self.positions = self.create()
 
-		# Queens Distribution
-		self.rainhas = []
-		for k in range(8):
-			self.rainhas.append(random.randrange(0, 8))
-		for k in range(8):
-			self.tabuleiro[self.rainhas[k]][k] = 1
+	# Generate one position on board
+	def getValue(self):
+		return random.randrange(1, 9)
 
-	def randomQueens(self):
+	# Create the positions of the board
+	def create(self):
 		list = []
 		for k in range(8):
-			list.append(random.randrange(1, 9))
+			list.append( self.getValue() )
 		return list
 
+	# Mathematics
 	def combinacao(self, n, p):
 		return ( math.factorial(n) / (math.factorial(p) * math.factorial(n - p)) )
 
-	def amountAtk2(self,positions):
+	# Evaluation the queens atacks
+	def eval(self,positions):
 		total = 0
 
 		board = []
@@ -94,83 +92,33 @@ class OitoRainhas(object):
 
 		return total
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	def amountAtk(self,tabuleiro):
-		total = 0
-
-		# Check all queens
-		for queen in self.localQueens(tabuleiro):
-			# Check in Line
-			for line in tabuleiro[ queen[0] ]:
-				if(line == 1):
-					total += 1
-			total -= 1
-
-			# Check on main diagonal
-			linhaAJD = queen[0]
-			colunaAJD = queen[1]
-			while (linhaAJD != 0 and colunaAJD != 0):
-				linhaAJD -= 1
-				colunaAJD -= 1
-
-			for k in range(8):
-				if((linhaAJD+k) == 8 or (colunaAJD+k) == 8):
-					break
-				if(tabuleiro[linhaAJD+k][colunaAJD+k] == 1):
-					total += 1
-			total -= 1
-
-			# Check on secondary diagonal
-			linhaAJD = queen[0]
-			colunaAJD = queen[1]
-			while (linhaAJD != 0 and colunaAJD != 7):
-				linhaAJD -= 1
-				colunaAJD += 1
-
-			for k in range(8):
-				if((linhaAJD+k) == 8 or (colunaAJD-k) == -1):
-					break
-				if(tabuleiro[linhaAJD+k][colunaAJD-k] == 1):
-					total += 1
-			total -= 1
-
-		return total
-
-	def localQueens(self, tabuleiro):
+	# Find the neighbors
+	def neighbors(self):
 		list = []
-		for i in range(8):
-			for j in range(8):
-				if(tabuleiro[i][j] == 1):
-					list.append([i,j])
+		for column in range(8):
+			for k in range(1,9):
+				if( k != self.positions[column] ):
+					copy = self.positions[:]
+					copy[column] = k
+					list.append( copy )
 		return list
 
 	# Auxiliaries Methods
-	def mostrar(self, tabuleiro):
-		for i in tabuleiro:
-			for j in i:
-				print("  " + str(j), end="")
-			print()
-
-	def copy(self, tabuleiro):
-		matrix = []
+	def show(self, tabuleiro):
 		for i in range(8):
-			line = []
-			for j in range(8):
-				line.append(self.tabuleiro[i][j])
-			matrix.append(line)
-		return matrix
+		    for j in range(8):
+		        if(result[j] == i+1):
+		            print("  Q", end="")
+		        else:
+		            print("  0", end="")
+		    print()
+
+
+
+
+
+
+
 
 	# Neighbour
 	def neighbour(self):
@@ -208,18 +156,3 @@ class OitoRainhas(object):
 			self.tabuleiro[ k ][ pos[1] ] = 0
 
 		self.tabuleiro[ pos[0] ][ pos[1] ] = 1
-
-'''
-e = OitoRainhas()
-print( e.amountAtk2([5,8,7,4,5,6,7,6]) )
-
-e = OitoRainhas()
-e.mostrar(e.tabuleiro)
-print()
-e.mostrar(e.neighbour())
-print()
-e.move()
-e.mostrar(e.tabuleiro)
-print()
-e.mostrar(e.neighbour())
-'''

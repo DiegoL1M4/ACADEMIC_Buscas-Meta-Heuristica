@@ -8,7 +8,7 @@ class AlgoritmosGeneticos(object):
     def __init__(self, game):
         self.game = game
 
-    def result(self, limit, tamPopulation, E, R, M):
+    def result(self, limit, tamPopulation, E, R, M, mask):
         # Time
         start = time.time()
 
@@ -17,14 +17,14 @@ class AlgoritmosGeneticos(object):
         # Create a population
         population = []
         for k in range(tamPopulation):
-            population.append( self.game.randomQueens() )
+            population.append( self.game.create() )
 
         # Iterations with limit
-        for k in range(limit):
+        for round in range(limit):
             # Evaluation
             evaluations = []
             for individual in population:
-                evaluations.append( self.game.amountAtk2(individual) )
+                evaluations.append( self.game.eval(individual) )
 
             if( min(evaluations) == 0 ):
                 res = population[ evaluations.index( min(evaluations) ) ]
@@ -32,6 +32,7 @@ class AlgoritmosGeneticos(object):
             # As evaluations servem só pra ter saber se convergiu?
 
             newPopulation = []
+            join = []
 
             # Election
             iterations = int(tamPopulation * E)
@@ -45,24 +46,23 @@ class AlgoritmosGeneticos(object):
 
             # Reproduction
             iterations = int( (tamPopulation * R) / 2 )
-            mask = [0,1,0,1,0,1,0,1]
             for k in range(iterations):
                 f1 = random.randrange(0, len(newPopulation))
                 f2 = random.randrange(0, len(newPopulation))
                 newIndividual = []
-                for k in range(8):
+                for k in range(len(mask)):
                     if(mask[k] == 0):
                         newIndividual.append(newPopulation[f1][k])
                     else:
                         newIndividual.append(newPopulation[f2][k])
-                newPopulation.append( newIndividual )
+                join.append( newIndividual )
                 newIndividual = []
-                for k in range(8):
+                for k in range(len(mask)):
                     if(mask[k] == 0):
                         newIndividual.append(newPopulation[f2][k])
                     else:
                         newIndividual.append(newPopulation[f1][k])
-                newPopulation.append( newIndividual )
+                join.append( newIndividual )
             #Duvida: uso pra reprodução sempre a lista atualizada da nova população?
 
             # Mutation
@@ -71,18 +71,19 @@ class AlgoritmosGeneticos(object):
                 indexRan = random.randrange(0, len(newPopulation))
                 copy = newPopulation[indexRan][:]
 
-                selectColumn = random.randrange(0, 8)
-                newLine = random.randrange(1, 9)
+                selectColumn = random.randrange(0, len(mask))
 
-                copy[selectColumn] = newLine
-                newPopulation.append(copy)
+                copy[selectColumn] = self.game.getValue()
+                join.append(copy)
 
+            newPopulation.extend( join )
             population = newPopulation
-        
+
         # Time
         end = time.time()
 
         print("Total de excução: " + str(end - start))
+        print("Total de execuções: " + str(round + 1))
 
         return res
 
