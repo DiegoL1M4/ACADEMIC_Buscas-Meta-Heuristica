@@ -30,5 +30,14 @@ problem = OitoRainhas.OitoRainhas()
 solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
 
 #limit = input("\nAlgoritmos Genéticos\nInforme uma limite: ")
-limit = 5
-print( solver.result(limit, 10, 0.2, 0.7, 0.1) )
+limit = 5000
+result = solver.result(limit, 100, 0.4, 0.5, 0.1)
+
+# Contruct the board
+for i in range(8):
+    for j in range(8):
+        if(result[j] == i+1):
+            print("  1", end="")
+        else:
+            print("  0", end="")
+    print()

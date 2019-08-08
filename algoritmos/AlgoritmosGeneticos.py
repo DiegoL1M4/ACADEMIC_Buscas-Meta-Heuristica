@@ -9,22 +9,26 @@ class AlgoritmosGeneticos(object):
         self.game = game
 
     def result(self, limit, tamPopulation, E, R, M):
+        # Time
+        start = time.time()
 
+        res = []
+
+        # Create a population
         population = []
-        evaluations = []
-
         for k in range(tamPopulation):
             population.append( self.game.randomQueens() )
 
-        
-
+        # Iterations with limit
         for k in range(limit):
             # Evaluation
+            evaluations = []
             for individual in population:
                 evaluations.append( self.game.amountAtk2(individual) )
 
             if( min(evaluations) == 0 ):
-                return population[ population.index( min(evaluations) ) ]
+                res = population[ evaluations.index( min(evaluations) ) ]
+                break
             # As evaluations servem só pra ter saber se convergiu?
 
             newPopulation = []
@@ -40,7 +44,7 @@ class AlgoritmosGeneticos(object):
                 newPopulation.append( population[indexRan] )
 
             # Reproduction
-            iterations = int(tamPopulation * R)
+            iterations = int( (tamPopulation * R) / 2 )
             mask = [0,1,0,1,0,1,0,1]
             for k in range(iterations):
                 f1 = random.randrange(0, len(newPopulation))
@@ -52,6 +56,13 @@ class AlgoritmosGeneticos(object):
                     else:
                         newIndividual.append(newPopulation[f2][k])
                 newPopulation.append( newIndividual )
+                newIndividual = []
+                for k in range(8):
+                    if(mask[k] == 0):
+                        newIndividual.append(newPopulation[f2][k])
+                    else:
+                        newIndividual.append(newPopulation[f1][k])
+                newPopulation.append( newIndividual )
             #Duvida: uso pra reprodução sempre a lista atualizada da nova população?
 
             # Mutation
@@ -61,12 +72,19 @@ class AlgoritmosGeneticos(object):
                 copy = newPopulation[indexRan][:]
 
                 selectColumn = random.randrange(0, 8)
-                newLine = random.randrange(0, 8)
+                newLine = random.randrange(1, 9)
 
                 copy[selectColumn] = newLine
                 newPopulation.append(copy)
 
             population = newPopulation
+        
+        # Time
+        end = time.time()
+
+        print("Total de excução: " + str(end - start))
+
+        return res
 
 
 
