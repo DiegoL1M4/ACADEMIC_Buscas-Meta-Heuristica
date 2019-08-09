@@ -107,10 +107,10 @@ class OitoRainhas(object):
 	def show(self, tabuleiro):
 		for i in range(8):
 		    for j in range(8):
-		        if(result[j] == i+1):
-		            print("  Q", end="")
+		        if(tabuleiro[j] == i+1):
+		            print(" 1", end="")
 		        else:
-		            print("  0", end="")
+		            print(" 0", end="")
 		    print()
 
 

@@ -11,7 +11,6 @@ class HillClimbing(object):
         # Time
         start = time.time()
 
-        newTotalColides = 0
         currentColides = self.game.eval( self.game.positions )
 
         # Iterations with limit
@@ -30,15 +29,14 @@ class HillClimbing(object):
                 evaluation = self.game.eval( neighbor )
                 if(evaluation == minor):
                     minorList.append( neighbor )
-                    newTotalColides = evaluation
 
             # Select one
             k = random.randrange(0, len(minorList))
-            if(currentColides <= newTotalColides):
+            if(currentColides <= minor):
                 break
 
             self.game.positions = minorList[k]
-            currentColides = self.game.eval( minorList[k] )
+            currentColides = minor
 
         # Time
         end = time.time()

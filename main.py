@@ -4,46 +4,34 @@ from jogo import OitoRainhas
 from algoritmos import HillClimbing
 from algoritmos import SimulatedAnnealing
 from algoritmos import AlgoritmosGeneticos
-'''
+
 print('\nProblema Inicial:')
 problem = OitoRainhas.OitoRainhas()
-problem.show(self.problem.tabuleiro)
+problem.show(problem.positions)
+result = []
 
-choice = input()
-
-if(choice == 1):
-    pass
-elif(choice == 1):
-    pass
-elif(choice == 1):
-    pass
-else:
-    print("Fim da Execução")
-'''
-
+#choice = input()
+choice = 2
 
 # Main (Hill Climbing)
-problem = OitoRainhas.OitoRainhas()
-solver = HillClimbing.HillClimbing(problem)
-result = solver.result( 5000 )
-print( "Total de ataques: " + str(problem.eval(result)) )
-'''
-# Main (Simulated Annealing)
-for k in range(100):
-    problem = OitoRainhas.OitoRainhas()
-    solver = SimulatedAnnealing.SimulatedAnnealing(problem)
-    limit = 5000
-    result = solver.result(limit, 5000, 300, 3, 0.9)
-    print( "Total de ataques: " + str(problem.eval(result)) )
+if(choice == 1):
+    solver = HillClimbing.HillClimbing(problem)
+    result = solver.result( 50 )
 
+# Main (Simulated Annealing)
+elif(choice == 2):
+    for k in range(100):
+        solver = SimulatedAnnealing.SimulatedAnnealing(problem)
+        result = solver.result(5000, 5000, 300, 3, 0.9)
+        print( "Total de ataques: " + str(problem.eval(result)) )
 
 # Main (Algoritmos Genéticos)
-problem = OitoRainhas.OitoRainhas()
-solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
-limit = 5000
-result = solver.result(limit, 100, 0.4, 0.5, 0.1, [0,0,0,0,1,1,1,1])
+elif(choice == 3):
+    solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
+    result = solver.result(5000, 100, 0.4, 0.5, 0.1, [0,0,0,0,1,1,1,1])
+
 print( "Total de ataques: " + str(problem.eval(result)) )
-'''
+
 # Contruct the board
 for i in range(8):
     for j in range(8):
