@@ -1,5 +1,6 @@
 
 import time
+import random
 
 class HillClimbing(object):
 
@@ -10,7 +11,8 @@ class HillClimbing(object):
         # Time
         start = time.time()
 
-        res = []
+        newTotalColides = 0
+        currentColides = self.game.eval( self.game.positions )
 
         # Iterations with limit
         for round in range(limit):
@@ -18,49 +20,30 @@ class HillClimbing(object):
             
             # Evaluation
             evaluations = []
-            for one in neighbors:
-                evaluations.append( self.game.eval( one ) )
+            for neighbor in neighbors:
+                evaluations.append( self.game.eval( neighbor ) )
+            
+            # Contruct one list of minors
+            minor = min(evaluations)
+            minorList = []
+            for neighbor in neighbors:
+                evaluation = self.game.eval( neighbor )
+                if(evaluation == minor):
+                    minorList.append( neighbor )
+                    newTotalColides = evaluation
 
-            res = population[ evaluations.index( min(evaluations) ) ]
-
-            if(newTotalColides == totalColides):
+            # Select one
+            k = random.randrange(0, len(minorList))
+            if(currentColides <= newTotalColides):
                 break
-            else:
-                totalColides = newTotalColides
 
+            self.game.positions = minorList[k]
+            currentColides = self.game.eval( minorList[k] )
 
+        # Time
+        end = time.time()
 
+        print("\nTotal de excução: " + str(end - start))
+        print("Total de execuções: " + str(round + 1))
 
-
-
-
-        print('\nProblema Inicial:')
-        self.game.mostrar(self.game.tabuleiro)
-
-        totalColides = 0
-        movements = 0
-        
-        inicio = time.time()
-
-        # Execução do Método
-        for k in range(int(limit)):
-            self.game.move()
-            movements = k + 1
-            newTotalColides = self.game.amountAtk(self.game.tabuleiro)
-            if(newTotalColides == totalColides):
-                break
-            else:
-                totalColides = newTotalColides
-                
-        fim = time.time()
-
-        print('\nResultado:')
-        self.game.mostrar(self.game.tabuleiro)
-        print('Total de Colisões: ' + str(self.game.amountAtk(self.game.tabuleiro)))
-        print('Total de Movimentos: ' + str(movements))
-        print('Tempo Total: ' + str(round(fim - inicio, 4)) + ' milisegundos')
-
-        print('\nQuadro de Movimentações')
-        self.game.mostrar(self.game.neighbour())
-        print()
-        
+        return self.game.positions

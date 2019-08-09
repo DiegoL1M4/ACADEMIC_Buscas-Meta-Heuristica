@@ -21,12 +21,12 @@ else:
     print("Fim da Execução")
 '''
 
-'''
+
 # Main (Hill Climbing)
 problem = OitoRainhas.OitoRainhas()
 solver = HillClimbing.HillClimbing(problem)
-limit = 5000
-result = solver.result(limit)
+result = solver.result( 5000 )
+print( "Total de ataques: " + str(problem.eval(result)) )
 '''
 # Main (Simulated Annealing)
 for k in range(100):
@@ -34,14 +34,15 @@ for k in range(100):
     solver = SimulatedAnnealing.SimulatedAnnealing(problem)
     limit = 5000
     result = solver.result(limit, 5000, 300, 3, 0.9)
-    print(problem.eval(result))
+    print( "Total de ataques: " + str(problem.eval(result)) )
 
-'''
+
 # Main (Algoritmos Genéticos)
 problem = OitoRainhas.OitoRainhas()
 solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
 limit = 5000
 result = solver.result(limit, 100, 0.4, 0.5, 0.1, [0,0,0,0,1,1,1,1])
+print( "Total de ataques: " + str(problem.eval(result)) )
 '''
 # Contruct the board
 for i in range(8):

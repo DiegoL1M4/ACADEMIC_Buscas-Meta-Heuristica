@@ -35,7 +35,7 @@ class SimulatedAnnealing(object):
         # Time
         end = time.time()
 
-        print("Total de excução: " + str(end - start))
+        print("\nTotal de excução: " + str(end - start))
         print("Total de execuções: " + str(round + 1))
 
         return self.game.positions
