@@ -7,6 +7,33 @@ class HillClimbing(object):
         self.game = game
 
     def result(self, limit):
+        # Time
+        start = time.time()
+
+        res = []
+
+        # Iterations with limit
+        for round in range(limit):
+            neighbors = self.game.neighbors()
+            
+            # Evaluation
+            evaluations = []
+            for one in neighbors:
+                evaluations.append( self.game.eval( one ) )
+
+            res = population[ evaluations.index( min(evaluations) ) ]
+
+            if(newTotalColides == totalColides):
+                break
+            else:
+                totalColides = newTotalColides
+
+
+
+
+
+
+
         print('\nProblema Inicial:')
         self.game.mostrar(self.game.tabuleiro)
 
