@@ -31,6 +31,7 @@ class AlgoritmosGeneticos(object):
                         continue
                     if( evaluations[k][0] < evaluation ):
                         evaluations.insert( k, [evaluation, individual] )
+                        break
             #print(evaluations)
             #input()
 
