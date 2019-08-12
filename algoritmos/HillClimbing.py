@@ -41,7 +41,7 @@ class HillClimbing(object):
         # Time
         end = time.time()
 
-        print("\nTotal de excução: " + str(end - start))
+        print("\nTempo: " + str(end - start))
         print("Total de execuções: " + str(round + 1))
 
         return self.game.positions

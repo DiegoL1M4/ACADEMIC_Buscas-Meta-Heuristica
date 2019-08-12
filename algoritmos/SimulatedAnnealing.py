@@ -17,12 +17,8 @@ class SimulatedAnnealing(object):
             nHits = 0
             for k in range(P):
                 Si = self.pertuba()
-                # Duvida: não pode repetir a escolha? Pode ser aleatório?
-                # DUVIDA: transformar o simulated em hill Climbing
-
-
                 delta = self.game.eval(Si) - self.game.eval(self.game.positions)
-                if( (delta <= 0) or (np.exp(-delta / temperature) > random.random()) ):
+                if( (delta <= 0) or (np.exp(-delta / temperature) > random.uniform(0.0,1.0)) ):
                     self.game.positions = Si
                     nHits += 1
                 if(nHits >= L):
@@ -35,7 +31,7 @@ class SimulatedAnnealing(object):
         # Time
         end = time.time()
 
-        print("\nTotal de excução: " + str(end - start))
+        print("\nTempo: " + str(end - start))
         print("Total de execuções: " + str(round + 1))
 
         return self.game.positions

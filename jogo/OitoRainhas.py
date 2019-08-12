@@ -26,7 +26,7 @@ class OitoRainhas(object):
 	# Evaluation the queens atacks
 	def eval(self,positions):
 		total = 0
-
+		
 		board = []
 		for k in range(8):
 			board.append([0,0,0,0,0,0,0,0])
@@ -112,47 +112,3 @@ class OitoRainhas(object):
 		        else:
 		            print(" 0", end="")
 		    print()
-
-
-
-
-
-
-
-
-	# Neighbour
-	def neighbour(self):
-		matrix = []
-		for i in range(8):
-			line = []
-			for j in range(8):
-				newTab = self.copy(self.tabuleiro)
-
-				# Erases the entire column of the jth
-				for k in range(8):
-					newTab[k][j] = 0
-				# Places the queen
-				newTab[i][j] = 1
-
-				line.append( self.amountAtk(newTab) )
-			matrix.append(line)
-		return matrix
-
-	def smallest(self,tabuleiro):
-		menor = tabuleiro[0][0]
-		pos = [0,0]
-		for i in range(8):
-			for j in range(8):
-				if (tabuleiro[i][j] < menor):
-					menor = tabuleiro[i][j]
-					pos = [i,j]
-		return pos
-
-	def move(self):
-		pos = self.smallest( self.neighbour() )
-
-		# Erases the entire column of the jth
-		for k in range(8):
-			self.tabuleiro[ k ][ pos[1] ] = 0
-
-		self.tabuleiro[ pos[0] ][ pos[1] ] = 1

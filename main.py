@@ -11,26 +11,45 @@ problem.show(problem.positions)
 result = []
 
 #choice = input()
-choice = 2
+choice = 3
 
 # Main (Hill Climbing)
 if(choice == 1):
-    solver = HillClimbing.HillClimbing(problem)
-    result = solver.result( 50 )
+    #solver = HillClimbing.HillClimbing(problem)
+    #result = solver.result( 100 )
+    cont = 0
+    for k in range(100):
+        problem = OitoRainhas.OitoRainhas()
+        solver = HillClimbing.HillClimbing(problem)
+        result = solver.result(100)
+        print( "Total de ataques: " + str(problem.eval(result)) )
+        if (problem.eval(result) == 0):
+            cont += 1
+    print( "Total de Acertos: " + str(cont) )
 
 # Main (Simulated Annealing)
 elif(choice == 2):
-    for k in range(100):
+    cont = 0
+    for k in range(1000):
+        problem = OitoRainhas.OitoRainhas()
         solver = SimulatedAnnealing.SimulatedAnnealing(problem)
-        result = solver.result(5000, 5000, 300, 3, 0.9)
-        print( "Total de ataques: " + str(problem.eval(result)) )
+        result = solver.result(500, 5000, 500, 50, 0.8)
+        print( "Total de ataques: " + str(k) )
+        if (problem.eval(result) != 0):
+            cont += 1
+    print( "Total de falhas: " + str(k+1) )
 
 # Main (Algoritmos Genéticos)
 elif(choice == 3):
-    solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
-    result = solver.result(5000, 100, 0.4, 0.5, 0.1, [0,0,0,0,1,1,1,1])
+    cont = 0
+    for k in range(10):
+        solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
+        result = solver.result(3000, 100, 0.5, 0.4, 0.1, [0,0,0,0,1,1,1,1])
+        if (problem.eval(result) == 0):
+            cont += 1
+    print( "Total de ataques: " + str( cont ) )
 
-print( "Total de ataques: " + str(problem.eval(result)) )
+print( "Total de sucessos: " + str(problem.eval(result)) )
 
 # Contruct the board
 for i in range(8):
