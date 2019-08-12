@@ -26,14 +26,14 @@ if(choice == 1):
             cont += 1
     print( "\nEficiência: " + str( cont ) + '/' + str(rangeInt) )
 
-# Main (Simulated Annealing) 
+# Main (Simulated Annealing)
 elif(choice == 2):
     print("\nSimulated Annealing")
     cont = 0
     for k in range(rangeInt):
         problem = OitoRainhas.OitoRainhas()
         solver = SimulatedAnnealing.SimulatedAnnealing(problem)
-        result = solver.result(500, 5000, 1000, 45, 0.8)
+        result = solver.result(500, 5000, 1000, 50, 0.8)
 
         if (problem.eval(result) == 0):
             cont += 1

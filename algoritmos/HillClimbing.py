@@ -16,12 +16,12 @@ class HillClimbing(object):
         # Iterations with limit
         for round in range(limit):
             neighbors = self.game.neighbors()
-            
+
             # Evaluation
             evaluations = []
             for neighbor in neighbors:
                 evaluations.append( self.game.eval( neighbor ) )
-            
+
             # Contruct one list of minors
             minor = min(evaluations)
             minorList = []
@@ -32,7 +32,7 @@ class HillClimbing(object):
 
             # Select one
             k = random.randrange(0, len(minorList))
-            if(currentColides <= minor):
+            if(currentColides < minor):
                 break
 
             self.game.positions = minorList[k]
