@@ -46,7 +46,7 @@ elif(choice == 3):
     for k in range(rangeInt):
         problem = OitoRainhas.OitoRainhas()
         solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
-        result = solver.result(3000, 100, 0.4, 0.2, 0.4)
+        result = solver.result(3000, 50, 0.4, 0.2, 0.4)
 
         if (problem.eval(result) == 0):
             cont += 1
