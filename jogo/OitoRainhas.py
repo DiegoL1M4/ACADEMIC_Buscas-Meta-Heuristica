@@ -111,4 +111,4 @@ class OitoRainhas(object):
 		            print(" 1", end="")
 		        else:
 		            print(" 0", end="")
-		    print()
+			print()

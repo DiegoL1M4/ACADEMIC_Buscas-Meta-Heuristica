@@ -1,9 +1,9 @@
 
 # Imports
-from jogo import OitoRainhas
-from algoritmos import HillClimbing
-from algoritmos import SimulatedAnnealing
-from algoritmos import AlgoritmosGeneticos
+from Problemas import OitoRainhas
+from Buscas import HillClimbing
+from Buscas import SimulatedAnnealing
+from Buscas import AlgoritmosGeneticos
 
 #print('\nProblema Inicial:')
 problem = OitoRainhas.OitoRainhas()
@@ -46,13 +46,14 @@ elif(choice == 3):
     for k in range(rangeInt):
         problem = OitoRainhas.OitoRainhas()
         solver = AlgoritmosGeneticos.AlgoritmosGeneticos(problem)
-        result = solver.result(3000, 50, 0.4, 0.2, 0.4)
+        result = solver.result(500, 500, 0.1, 0.8, 0.1)
 
         if (problem.eval(result) == 0):
             cont += 1
     print( "\nEficiência: " + str( cont ) + '/' + str(rangeInt))
 
-print( "\nTotal de sucessos: " + str(problem.eval(result)) )
+print( "\nTotal de ataques: " + str(problem.eval(result)) )
 
 # Contruct the board
 problem.show(result)
+print()
