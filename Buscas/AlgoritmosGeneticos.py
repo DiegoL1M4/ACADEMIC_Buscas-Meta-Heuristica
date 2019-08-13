@@ -43,7 +43,6 @@ class AlgoritmosGeneticos(object):
             # New population
             newPopulation = []
 
-
             # Electism
             iterations = int(tamPopulation * E)
             for k in range(iterations):
