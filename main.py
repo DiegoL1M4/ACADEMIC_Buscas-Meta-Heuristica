@@ -33,7 +33,7 @@ elif(choice == 2):
     for k in range(rangeInt):
         problem = OitoRainhas.OitoRainhas()
         solver = SimulatedAnnealing.SimulatedAnnealing(problem)
-        result = solver.result(500, 5000, 1000, 50, 0.8)
+        result = solver.result(500, 5000, 500, 50, 0.8)
 
         if (problem.eval(result) == 0):
             cont += 1
