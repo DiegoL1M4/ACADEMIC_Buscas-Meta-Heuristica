@@ -11,7 +11,8 @@ problem = OitoRainhas.OitoRainhas()
 result = []
 
 choice = int(input("\nOpção: "))
-rangeInt = int(input("Range: "))
+#rangeInt = int(input("Range: "))
+rangeInt = 1
 
 # Main (Hill Climbing)
 if(choice == 1):
